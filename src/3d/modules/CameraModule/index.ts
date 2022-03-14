@@ -1,4 +1,4 @@
-import { ArcRotateCamera, Camera, Nullable, Observable, Vector3 } from "@babylonjs/core";
+import { ArcRotateCamera, Camera, Nullable, Vector3 } from "@babylonjs/core";
 import { PlaskEngine } from "../../PlaskEngine";
 import Module from "../Module";
 
@@ -13,12 +13,8 @@ export default class CameraModule extends Module {
   private _preTargets: PrevCameraProperties
   private _orthoView: View = 'front'
 
-  public onCameraModeChangeObservable: Observable<'perspective' | 'orthographic'>
-
   constructor(plaskEngine: PlaskEngine) {
     super(plaskEngine)
-
-    this.onCameraModeChangeObservable = new Observable()
 
     this._prevPositions = {}
     this._preTargets = {}
