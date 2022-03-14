@@ -1,4 +1,4 @@
-import { PlaskEngine } from "../../PlaskEngine";
+import { PlaskEngine } from "../PlaskEngine";
 
 export default abstract class Module {
   constructor(public plaskEngine: PlaskEngine) {}

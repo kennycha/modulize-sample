@@ -1,6 +1,6 @@
 import { ArcRotateCamera, Camera, Nullable, Vector3 } from "@babylonjs/core";
-import { PlaskEngine } from "../../PlaskEngine";
-import Module from "../Module";
+import { PlaskEngine } from "../PlaskEngine";
+import Module from "./Module";
 
 type PrevCameraProperties = {
   [key: string]: Nullable<Vector3>

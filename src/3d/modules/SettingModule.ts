@@ -1,6 +1,6 @@
 import { Observable } from "@babylonjs/core";
-import { PlaskEngine } from "../../PlaskEngine";
-import Module from "../Module";
+import { PlaskEngine } from "../PlaskEngine";
+import Module from "./Module";
 
 export default class SettingModule extends Module {
   public reduxObservedStateKeys = ['theme']
