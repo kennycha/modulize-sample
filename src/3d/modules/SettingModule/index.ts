@@ -6,15 +6,11 @@ export default class SettingModule extends Module {
   public reduxObservedStateKeys = ['theme']
   public onThemeColorChangeObservable: Observable<'dark' | 'light'>
 
-  public get themeColor() {
-    return this.plaskEngine.state.theme.color
-  }
-
   constructor(plaskEngine: PlaskEngine) {
     super(plaskEngine)
     this.onThemeColorChangeObservable = new Observable()
   }
-   
+  
   public initialize(): void {
     this.onThemeColorChangeObservable.add((themeColor) => {
       this.plaskEngine.changeSceneClearColor(themeColor)
@@ -33,6 +29,10 @@ export default class SettingModule extends Module {
         break
       }
     }
+  }
+
+  public get themeColor() {
+    return this.plaskEngine.state.theme.color
   }
 
   public dispose(): void {
