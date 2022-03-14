@@ -1,6 +1,6 @@
-import { Animation, ArcRotateCamera, Camera, Color3, Color4, DirectionalLight, Engine, HemisphericLight, PointerEventTypes, PointerInfo, Scene } from "@babylonjs/core";
+import { Animation, ArcRotateCamera, Camera, Color3, Color4, DirectionalLight, Engine, HemisphericLight, MeshBuilder, PointerEventTypes, PointerInfo, Scene } from "@babylonjs/core";
 import { Dispatch } from "redux";
-import { AnimationModule, AssetModule, CameraModule, GizmoModule, Module, SelectorModule } from "./modules";
+import { AnimationModule, AssetModule, CameraModule, GizmoModule, Module, SelectorModule, SettingModule } from "./modules";
 import { createCamera, createDirectionalLight, createHemisphericLight, getUpdatedKeys } from "../utils";
 import { RootState } from "../reducers";
 
@@ -25,6 +25,7 @@ export class PlaskEngine {
   public cameraModule!: CameraModule
   public gizmoModule!: GizmoModule
   public selectorModule!: SelectorModule
+  public settingModule!: SettingModule
 
   constructor() {
     Animation.AllowMatricesInterpolation = true
@@ -39,6 +40,7 @@ export class PlaskEngine {
     this._modules.push(this.cameraModule = new CameraModule(this))
     this._modules.push(this.gizmoModule = new GizmoModule(this))
     this._modules.push(this.selectorModule = new SelectorModule(this))
+    this._modules.push(this.settingModule = new SettingModule(this))
   }
 
   private _onSceneReady(scene: Scene) {
@@ -48,6 +50,8 @@ export class PlaskEngine {
     this._camera = createCamera(scene)
     this._hemiLight = createHemisphericLight(scene)
     this._dirLight = createDirectionalLight(scene)
+
+    MeshBuilder.CreateBox('dummyBox', { size: 2 })  // dummyBox
   }
 
   private _onPointer(pointerInfo: PointerInfo, scene: Scene) {

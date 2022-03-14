@@ -20,7 +20,7 @@ const ControlPanel: FunctionComponent<Props> = () => {
 
   return (
     <Container>
-      <button onClick={handleToggleThemeColor}>{theme.color}</button>
+      <span>Change Theme to </span><button onClick={handleToggleThemeColor}>{theme.color}</button>
     </Container>
   )
 }
