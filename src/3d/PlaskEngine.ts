@@ -69,9 +69,8 @@ export class PlaskEngine {
       } 
     } else if (type === PointerEventTypes.POINTERDOWN) {
       const event = pointerInfo.event as PointerEvent;
-      // return to perspective mode when camera is rotated
       if (event.button === 0 && event.altKey && this.scene.activeCamera && this.scene.activeCamera.mode === Camera.ORTHOGRAPHIC_CAMERA) {
-        // this.cameraModule.toPerspective();
+        this.cameraModule.toPerspective();
       }
     }
   }
@@ -80,6 +79,24 @@ export class PlaskEngine {
     scene.onPointerObservable.add((pointerInfo) => {
       this._onPointer(pointerInfo, scene)
     })
+
+    scene.getEngine().onResizeObservable.add(() => {
+      this._onResize()
+    })
+  }
+
+  private _onResize() {
+    this._engine.resize()
+
+    if (this._scene.activeCamera && this._scene.activeCamera.mode === Camera.ORTHOGRAPHIC_CAMERA && this._canvas) {
+      const canvas = this._canvas
+      const orthoFactor = this._scene.activeCamera!.orthoTop as number
+
+      this._scene.activeCamera!.orthoTop = orthoFactor
+      this._scene.activeCamera!.orthoBottom = -orthoFactor
+      this._scene.activeCamera!.orthoLeft = -orthoFactor * (canvas.width / canvas.height)
+      this._scene.activeCamera!.orthoRight = orthoFactor * (canvas.width / canvas.height)
+    }
   }
 
   // static methods
