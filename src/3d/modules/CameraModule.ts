@@ -10,40 +10,32 @@ type View = 'top' | 'bottom' | 'front' | 'back' | 'left' | 'right'
 
 export default class CameraModule extends Module {
   private _prevPositions: PrevCameraProperties
-  private _preTargets: PrevCameraProperties
+  private _prevTargets: PrevCameraProperties
   private _orthoView: View = 'front'
 
   constructor(plaskEngine: PlaskEngine) {
     super(plaskEngine)
 
     this._prevPositions = {}
-    this._preTargets = {}
+    this._prevTargets = {}
   }
 
   public initialize(): void {
-    this.prevPositions[this.plaskEngine.canvas.id] = null
-    this.prevTargets[this.plaskEngine.canvas.id] = null
-  }
-
-  public get prevPositions() {
-    return this._prevPositions
-  }
-
-  public get prevTargets() {
-    return this._preTargets
+    this._prevPositions[this.plaskEngine.canvas.id] = null
+    this._prevTargets[this.plaskEngine.canvas.id] = null
   }
 
   public toPerspective() {
     const activeCamera = this.plaskEngine.scene.activeCamera as Nullable<ArcRotateCamera>
     const canvasId = this.plaskEngine.canvas.id
     
-    if (activeCamera && this.prevPositions && this.prevTargets && this.prevPositions[canvasId] && this.prevTargets[canvasId]) {
+    if (activeCamera && this._prevPositions && this._prevTargets && this._prevPositions[canvasId] && this._prevTargets[canvasId]) {
       activeCamera.mode = Camera.PERSPECTIVE_CAMERA
 
-      activeCamera.setPosition(this.prevPositions[canvasId]!.clone())
-      activeCamera.setTarget(this.prevTargets[canvasId]!.clone())
-      this.prevPositions[canvasId] = null
-      this.prevTargets[canvasId] = null
+      activeCamera.setPosition(this._prevPositions[canvasId]!.clone())
+      activeCamera.setTarget(this._prevTargets[canvasId]!.clone())
+      this._prevPositions[canvasId] = null
+      this._prevTargets[canvasId] = null
     }
   }
 
@@ -63,9 +55,9 @@ export default class CameraModule extends Module {
       activeCamera.orthoLeft = -orthoFactor * (canvas.width / canvas.height)
       activeCamera.orthoRight = orthoFactor * (canvas.width / canvas.height)
 
-      if (!this.prevPositions[canvas.id] && !this.prevTargets[canvas.id]) {
-        this.prevPositions[canvas.id] = position
-        this.prevTargets[canvas.id] = target
+      if (!this._prevPositions[canvas.id] && !this._prevTargets[canvas.id]) {
+        this._prevPositions[canvas.id] = position
+        this._prevTargets[canvas.id] = target
       }
 
       switch (view) {
