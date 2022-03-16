@@ -1,3 +1,6 @@
+export type Extension = 'glb' | 'fbx'
+
+
 /**
  * camera 커스텀을 위한 타입 정의
  *
