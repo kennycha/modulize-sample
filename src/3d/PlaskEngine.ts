@@ -51,7 +51,7 @@ export class PlaskEngine {
     this._hemiLight = createHemisphericLight(scene)
     this._dirLight = createDirectionalLight(scene)
 
-    MeshBuilder.CreateBox('dummyBox', { size: 2 })  // dummyBox
+    // MeshBuilder.CreateBox('dummyBox', { size: 2 })  // dummyBox
   }
 
   private _onPointer(pointerInfo: PointerInfo, scene: Scene) {
