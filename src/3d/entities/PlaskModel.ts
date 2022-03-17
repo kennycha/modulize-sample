@@ -26,6 +26,7 @@ export default class PlaskModel extends PlaskEntity {
     const { meshes, geometries } = this.assetContainer
     meshes.forEach((mesh) => {
       scene.addMesh(mesh)
+      mesh.isPickable = false
     })
     geometries.forEach((geometry) => {
       scene.addGeometry(geometry)
