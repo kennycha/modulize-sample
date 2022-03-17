@@ -1064,29 +1064,29 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@babylonjs/core@5.0.0-rc.2":
-  version "5.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.0.0-rc.2.tgz#e844289ec44eec06a9aeb52796b98fea1953d3d1"
-  integrity sha512-XvGmAauX83EsOKFeIcku3jxFKKNq7+nBhOXZG+gXLrAnZITFlB56uXbo7YlZWLbmZb46Qyqs78nUrZXp7hfZ5Q==
+"@babylonjs/core@5.0.0-alpha.61":
+  version "5.0.0-alpha.61"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-5.0.0-alpha.61.tgz#e2d8f2a2ebd68d71611216ca9681a3ecb26dd787"
+  integrity sha512-iBVcpWxPajVWScrPKukewYre6OhXEF/DrqeKRGnY9DgoKtAe6z0DY+BjWuOHGdaipYJvxux34RvldSeyXIxkqg==
   dependencies:
     tslib "^2.3.1"
 
-"@babylonjs/loaders@5.0.0-rc.2":
-  version "5.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.0.0-rc.2.tgz#29890ebcd9e33e2266853dd363f9a653ea562588"
-  integrity sha512-3C4ZGAJXbGR5r5M6o9gItR6uosImY7wZqo+3MfhWyftwbjxO6VE7jJPRPFb/7L7c1iYbo7XJKu5+9JwAuAZd1g==
+"@babylonjs/loaders@5.0.0-alpha.61":
+  version "5.0.0-alpha.61"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-5.0.0-alpha.61.tgz#cd1acfd2438de21ad982633662a1dd2fa65c7793"
+  integrity sha512-2rGn7H4cJqDhYckLCEdn1TLvdkTtFD+UnsDHfUF4SvdzHhtrWY2hkiDJpCEZmCALhAYQP+SE97mOv+dpRYnnJw==
   dependencies:
-    "@babylonjs/core" "5.0.0-rc.2"
-    babylonjs-gltf2interface "5.0.0-rc.2"
+    "@babylonjs/core" "5.0.0-alpha.61"
+    babylonjs-gltf2interface "5.0.0-alpha.61"
     tslib "^2.3.1"
 
-"@babylonjs/serializers@5.0.0-rc.2":
-  version "5.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.0.0-rc.2.tgz#08e74b6e6026b5f800ac71be7e6eb62839c18da2"
-  integrity sha512-g8lzEkTdEEpGFze3bg+Ge8cOOOpi0n/TxI5CVDLGK0h8vfLN1hr4NY9VGUP+9CxDbsF3tniPl9AaZnUWYG7nkg==
+"@babylonjs/serializers@5.0.0-alpha.61":
+  version "5.0.0-alpha.61"
+  resolved "https://registry.yarnpkg.com/@babylonjs/serializers/-/serializers-5.0.0-alpha.61.tgz#e0e4183d13819dbe69832a334c4da6ca6f62fe86"
+  integrity sha512-8il061x+ub4BJs6bCYswZmpYcqCSlr2u5+8l27oVOyTEnBYrOt/cmu1dvtnACl7OOSRWSZKhVmCXlNEteH7qYg==
   dependencies:
-    "@babylonjs/core" "5.0.0-rc.2"
-    babylonjs-gltf2interface "5.0.0-rc.2"
+    "@babylonjs/core" "5.0.0-alpha.61"
+    babylonjs-gltf2interface "5.0.0-alpha.61"
     tslib "^2.3.1"
 
 "@bcoe/v8-coverage@^0.2.3":
@@ -2763,10 +2763,10 @@ babel-preset-react-app@^10.0.1:
     babel-plugin-macros "^3.1.0"
     babel-plugin-transform-react-remove-prop-types "^0.4.24"
 
-babylonjs-gltf2interface@5.0.0-rc.2:
-  version "5.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-5.0.0-rc.2.tgz#8c9f4df65a8bd56cb3ff4009cb15340eb755cc6a"
-  integrity sha512-VgpxPJaq8mWKTVENH0fTfgcrCp2rqW8c5T7XbHxHJya9oASBdoyh8XFoLjZDOm4tISffVsVCVxYbwmBzIhHQ0g==
+babylonjs-gltf2interface@5.0.0-alpha.61:
+  version "5.0.0-alpha.61"
+  resolved "https://registry.yarnpkg.com/babylonjs-gltf2interface/-/babylonjs-gltf2interface-5.0.0-alpha.61.tgz#650a9a5e232e0f74f95f6e8c6e5eb296ea88a090"
+  integrity sha512-5uN2/ORzhEyXovliWUTs+Fjx85MBD2w150KLEVbJFL8q6Yc8/inPomTrG3N+j+/msZ3Z92qjid3EFT3qLILoIg==
 
 balanced-match@^1.0.0:
   version "1.0.2"

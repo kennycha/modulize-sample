@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babylonjs/core": "5.0.0-rc.2",
-    "@babylonjs/loaders": "5.0.0-rc.2",
-    "@babylonjs/serializers": "5.0.0-rc.2",
+    "@babylonjs/core": "5.0.0-alpha.61",
+    "@babylonjs/loaders": "5.0.0-alpha.61",
+    "@babylonjs/serializers": "5.0.0-alpha.61",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
