@@ -2,6 +2,11 @@ export type PlaskExtension = 'glb' | 'fbx'
 export type PlaskProperty = 'position' | 'rotation' | 'rotationQuaternion' | 'scaling'
 export type PlaskAxis = 'x' | 'y' | 'z' | 'w'
 export type PlaskInterpolation = 'linear' | 'bezier' | 'constant'
+export type PlaskPlayState = 'play' | 'pause' | 'stop'
+export enum PlaskPlayDirection {
+  forward = 1,
+  backward = -1
+}
 
 /**
  * camera 커스텀을 위한 타입 정의
