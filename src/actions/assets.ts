@@ -1,13 +1,13 @@
-import { PlaskModel, PlaskSkeletalModel } from "../3d/entities"
+import { PlaskModel, PlaskMotion, PlaskSkeletalModel } from "../3d/entities"
 
-export type AssetsAction = ReturnType<typeof addModel>
+export type AssetsAction = ReturnType<typeof importFile>
 
-export const ADD_MODEL = 'assets/ADD_MODEL' as const
-
-interface AddModel {
-  model: PlaskModel | PlaskSkeletalModel
+export const IMPORT_FILE = 'assets/IMPORT_FILE' as const
+interface ImportFile {
+  model: PlaskModel | PlaskSkeletalModel;
+  motions: PlaskMotion[]
 }
-export const addModel = (params: AddModel) => ({
-  type: ADD_MODEL,
+export const importFile = (params: ImportFile) => ({
+  type: IMPORT_FILE,
   payload: params,
 })

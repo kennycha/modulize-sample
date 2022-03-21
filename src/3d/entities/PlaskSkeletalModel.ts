@@ -1,8 +1,8 @@
-import { ActionEvent, ActionManager, Bone, ExecuteCodeAction, Matrix, Mesh, MeshBuilder, Nullable, Scene, SkeletonViewer, Vector3, VertexBuffer } from "@babylonjs/core";
-import { getAbsoluteBindPoseToRef } from "../../utils";
-import isJointBone from "../../utils/isJointBone";
-import { Extension } from "../../utils/types";
+import { ActionEvent, ActionManager, Axis, Bone, ExecuteCodeAction, Matrix, Mesh, MeshBuilder, Nullable, Scene, SkeletonViewer, Vector3, VertexBuffer } from "@babylonjs/core";
+import { getAbsoluteBindPoseToRef, isJointBone } from "../../utils";
+import { PlaskExtension } from "../../utils/types";
 import PlaskModel from "./PlaskModel";
+import PlaskMotion from "./PlaskMotion";
 
 const DEFAULT_SKELETON_VIEWER_OPTION = {
   pauseAnimations: false,
@@ -23,8 +23,8 @@ export default class PlaskSkeletalModel extends PlaskModel {
   private _skeletonViewer: Nullable<SkeletonViewer>
   private _joints: Mesh[]
 
-  constructor(name: string, extension: Extension, fileUrl: string) {
-    super(name, extension, fileUrl)
+  constructor(name: string, extension: PlaskExtension, fileUrl: string, motions: PlaskMotion[]) {
+    super(name, extension, fileUrl, motions)
 
     this._joints = []
     this._skeletonViewer = null
@@ -33,7 +33,6 @@ export default class PlaskSkeletalModel extends PlaskModel {
   private _addJoints(bones: Bone[], scene: Scene, modelId: string) {
     const jointBoneGroups: Array<[Mesh, Bone]> = [];
     let longestBoneLength = Number.NEGATIVE_INFINITY;
-
   
     bones.forEach((bone, idx) => {
       const boneAbsoluteBindPoseTransform = new Matrix();
@@ -103,6 +102,7 @@ export default class PlaskSkeletalModel extends PlaskModel {
         if (transformNode) {
           transformNode.id = `${this.id}//${bone.name}//transformNode`
           scene.addTransformNode(transformNode)
+          transformNode.rotate(Axis.X, 0) // to use quaternion as rotation
         }
       })
 

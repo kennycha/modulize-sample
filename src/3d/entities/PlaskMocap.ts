@@ -1,9 +1,9 @@
 import PlaskEntity from "./PlaskEntity";
 
 export default class PlaskMocap extends PlaskEntity {
-  // constructor() {
-  //   super()
-  // }
+  constructor(name: string) {
+    super(undefined, name)
+  }
 
   public toMotion() {
     

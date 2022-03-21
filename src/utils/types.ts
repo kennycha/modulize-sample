@@ -1,5 +1,7 @@
-export type Extension = 'glb' | 'fbx'
-
+export type PlaskExtension = 'glb' | 'fbx'
+export type PlaskProperty = 'position' | 'rotation' | 'rotationQuaternion' | 'scaling'
+export type PlaskAxis = 'x' | 'y' | 'z' | 'w'
+export type PlaskInterpolation = 'linear' | 'bezier' | 'constant'
 
 /**
  * camera 커스텀을 위한 타입 정의

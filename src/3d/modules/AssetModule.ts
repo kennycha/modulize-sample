@@ -1,7 +1,7 @@
-import { Observable, SceneLoader } from '@babylonjs/core';
+import { Observable, SceneLoader, TransformNode } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
-import { getConvertedFileUrl, getSplitedFileName } from '../../utils';
-import { Extension } from '../../utils/types';
+import { getConvertedFileUrl, getSplitedFileName, isJointBone } from '../../utils';
+import { PlaskExtension } from '../../utils/types';
 import { PlaskMocap, PlaskModel, PlaskMotion, PlaskSkeletalModel } from "../entities";
 import { PlaskEngine } from "../PlaskEngine";
 import Module from "./Module";
@@ -9,7 +9,7 @@ import * as assetsActions from '../../actions/assets'
 
 export default class AssetModule extends Module {
   private _models: (PlaskModel | PlaskSkeletalModel)[]
-  // private _motions: PlaskMotion[]
+  private _motions: PlaskMotion[]
   // private _mocaps: PlaskMocap[]
 
   public reduxObservedStateKeys = ['assets']
@@ -21,7 +21,7 @@ export default class AssetModule extends Module {
     super(plaskEngine)
 
     this._models = []
-    // this._motions = []
+    this._motions = []
     // this._mocaps = []
 
     this.onAssetsModelsChangeObservable = new Observable()
@@ -33,8 +33,12 @@ export default class AssetModule extends Module {
     this.onAssetsModelsChangeObservable.add((models) => {
       this._models = models
     }) 
-    this.onAssetsMotionsChangeObservable.add((motions) => {}) 
-    this.onAssetsMocapsChangeObservable.add((mocaps) => {}) 
+    this.onAssetsMotionsChangeObservable.add((motions) => {
+      this._motions = motions
+    }) 
+    this.onAssetsMocapsChangeObservable.add((mocaps) => {
+      // this._mocaps = mocaps
+    }) 
   }
 
   public onStateChanged(stateKey: string, key: string | symbol): void {
@@ -42,6 +46,13 @@ export default class AssetModule extends Module {
       case 'assets': {
         if (key === 'models') {
           this.onAssetsModelsChangeObservable.notifyObservers(this.models)
+          console.log('models: ', this.models)
+        } else if (key === 'motions') {
+          this.onAssetsMotionsChangeObservable.notifyObservers(this.motions)
+          console.log('motions: ', this.motions)
+        } else if (key === 'mocaps') {
+          this.onAssetsMocapsChangeObservable.notifyObservers(this.mocaps)
+          console.log('mocaps: ', this.mocaps)
         }
         break
       }
@@ -62,20 +73,21 @@ export default class AssetModule extends Module {
         fileUrl = await getConvertedFileUrl(file, 'glb')
       }
       const assetContainer = await SceneLoader.LoadAssetContainerAsync(fileUrl, '', this.plaskEngine.scene)
-      const { skeletons } = assetContainer
+      const { meshes, skeletons, animationGroups } = assetContainer
 
       let model: PlaskModel | PlaskSkeletalModel
+      let motions: PlaskMotion[] = []
       if (skeletons.length > 0) {
-        model = new PlaskSkeletalModel(name, extension as Extension, fileUrl)
+        model = new PlaskSkeletalModel(name, extension as PlaskExtension, fileUrl, motions)
+        const targets = skeletons[0].bones.filter(isJointBone).map((bone) => bone.getTransformNode()) as TransformNode[]
+        animationGroups.forEach((animationGroup) => motions.push(new PlaskMotion(model, targets, false, animationGroup)))
       } else {
-        model = new PlaskModel(name, extension as Extension, fileUrl)
+        model = new PlaskModel(name, extension as PlaskExtension, fileUrl, motions)
+        const targets = [meshes[0]]
+        animationGroups.forEach((animationGroup) => motions.push(new PlaskMotion(model, targets, false, animationGroup)))
       }
 
-      // const motions = animationGroups.map((animationGroup) => {
-      //   return
-      // })
-
-      this.plaskEngine.dispatch(assetsActions.addModel({ model }))
+      this.plaskEngine.dispatch(assetsActions.importFile({ model, motions }))
       
       assetContainer.dispose()
     } catch (error) {
@@ -109,7 +121,16 @@ export default class AssetModule extends Module {
       console.error("Model doesn't exist")
     }
   }
-   
+
+  public selectMotion(id: string) {
+    const targetMotion = this._motions.find((motion) => motion.id === id)
+    if (targetMotion) {
+      targetMotion.use(this.plaskEngine.scene)
+    } else {
+      console.error("Motion doesn't exist")
+    }
+  }
+ 
   public dispose() {
     this.onAssetsModelsChangeObservable.clear()
     this.onAssetsMotionsChangeObservable.clear()

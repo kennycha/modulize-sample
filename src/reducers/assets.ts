@@ -14,10 +14,11 @@ const defaultState: AssetsState = {
 }
 
 export const assets = (state = defaultState, action: AssetsAction) => {
-  switch (action.type) {
-    case 'assets/ADD_MODEL': {
+  switch (action.type) {    
+    case 'assets/IMPORT_FILE': {
       return Object.assign({}, state, {
-        models: [...state.models, action.payload.model]
+        models: [...state.models, action.payload.model],
+        motions: [...state.motions, ...action.payload.motions]
       })
     }
     default: {

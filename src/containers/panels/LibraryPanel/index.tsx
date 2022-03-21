@@ -8,6 +8,7 @@ interface Props {}
 const LibraryPanel: FunctionComponent<Props> = () => {
   const { plaskEngine } = useContext(BabylonContext)
   const models = useSelector((state) => state.assets.models)
+  const motions = useSelector((state) => state.assets.motions)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target?.files![0]
@@ -27,11 +28,24 @@ const LibraryPanel: FunctionComponent<Props> = () => {
     }
   }
 
+  const handleMotionClick = (id: string) => {
+    plaskEngine.assetModule.selectMotion(id)
+  }
+
   return (
     <Container>
       <input type='file' accept=".glb, .fbx" onChange={handleInputChange} />
+      <div>Models</div>
       <ul>
-        {models.map((model) => <li key={model.id} onClick={() => handleModelClick(model.id)}>Model: {model.name}</li>)}        
+        {models.map((model) => {
+          return <li key={model.id} onClick={() => handleModelClick(model.id)}>Model: {model.name}</li>
+        })}        
+      </ul>
+      <div>Motions</div>
+      <ul>
+        {motions.map((motion) => {
+          return <li key={motion.id} onClick={() => handleMotionClick(motion.id)}>Motion: {motion.name}</li>
+        })}
       </ul>
     </Container>
   )
